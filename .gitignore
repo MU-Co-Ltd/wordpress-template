@@ -1,0 +1,8 @@
+# common
+.DS_Store
+
+# editor
+.vscode
+
+# env
+.env

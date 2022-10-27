@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+html {
+  font-size: 16px;
+}
+
+body {
+  overflow-x: hidden;
+
+  &.--scroll-stop {
+    /* when modal active */
+    touch-action: none;
+    -webkit-overflow-scrolling: none;
+    overflow: hidden;
+    /* Other browsers */
+    overscroll-behavior: none;
+  }
+}
