@@ -2,7 +2,7 @@ version: '3'
 services:
   app:
     container_name: wp-container
-    image: wordpress:latest
+    image: wordpress:php8.0-apache
     volumes:
       - type: bind
         source: "./app/public"
