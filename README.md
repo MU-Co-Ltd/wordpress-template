@@ -9,7 +9,7 @@
    $ sh up.sh
    ```
 
-3. `./app/public`内に**WordPress** coreファイルが生成されたら、Webブラウザでアクセスして**WordPress インストール**画面が表示されることを確認する  
+3. `./project/public`内に**WordPress** coreファイルが生成されたら、Webブラウザでアクセスして**WordPress インストール**画面が表示されることを確認する  
    ＊ hostマシン側の`port`は`.env`に記載した`WEB_PORT`
    ```
    http://localhost:"${WEB_PORT}"
@@ -17,7 +17,7 @@
 
 4. **WordPress**で開発する**テーマ**を*作成* or *配置* する
    ```
-   ./app/public/wp-content/themes
+   ./project/public/wp-content/themes
    ```
 
 5. 必要に応じて、`SQLファイルのインポート`や`upload画像の反映`を行う
@@ -34,7 +34,7 @@
    [コンソールからアクセスする例]
    $ docker-compose exec node bash
    ```
-   > カレントディレクトリに `./app` のファイルがマウントされていることを確認
+   > カレントディレクトリに `./project` のファイルがマウントされていることを確認
 
 3. 依存パッケージのインストール
    ```shell
@@ -55,7 +55,7 @@
    [yarn]
    $ yarn build
    ```
-   > `./app/public/wp-content/themes/[theme名]`内に`assets/js`, `assets/css`, `assets/image`が作成されていれば成功
+   > `./project/public/wp-content/themes/[theme名]`内に`assets/js`, `assets/css`, `assets/image`が作成されていれば成功
 
 ### 補足
 - コンパイル後生成される**ファイル名**と、**配置先**の設定
