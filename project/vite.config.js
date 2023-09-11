@@ -22,7 +22,7 @@ export default defineConfig(({ command, mode }) => {
       rollupOptions: {
         /** compileの entrypoint */
         input: {
-          'js/app': 'src/main.ts',
+          'js/app': 'src/app.ts',
           'css/main': 'src/styles/scss/main.scss',
           'css/sub': 'src/styles/style.css',
         },
