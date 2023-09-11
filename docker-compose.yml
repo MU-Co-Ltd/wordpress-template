@@ -1,44 +1,44 @@
 version: "3"
 services:
-  wordpress:
-    container_name: wp-container
-    image: wordpress:php${APP_PHP_VERSION:-8.1}-apache
-    volumes:
-      - type: bind
-        source: "./project/public"
-        target: "/var/www/html"
-      - type: bind
-        source: "./docker/php/local/php.ini"
-        target: "/usr/local/etc/php/conf.d/php.ini"
-    environment:
-      WORDPRESS_DB_HOST: "${MY_DB_HOST:-db-container}:3306"
-      WORDPRESS_DB_USER: ${MY_DB_USER:-admin}
-      WORDPRESS_DB_PASSWORD: ${MY_DB_PASSWORD:-password}
-      WORDPRESS_DB_NAME: ${MY_DB_NAME:-wordpress}
-      WORDPRESS_TABLE_PREFIX: ${TABLE_PREFIX:-wp_}
-      WORDPRESS_DEBUG: ${DEBUG_MODE}
-    ports:
-      - "${WEB_PORT:-8000}:80"
-    depends_on:
-      - database
+  # wordpress:
+  #   container_name: wp-container
+  #   image: wordpress:php${APP_PHP_VERSION:-8.1}-apache
+  #   volumes:
+  #     - type: bind
+  #       source: "./project/public"
+  #       target: "/var/www/html"
+  #     - type: bind
+  #       source: "./docker/php/local/php.ini"
+  #       target: "/usr/local/etc/php/conf.d/php.ini"
+  #   environment:
+  #     WORDPRESS_DB_HOST: "${MY_DB_HOST:-db-container}:3306"
+  #     WORDPRESS_DB_USER: ${MY_DB_USER:-admin}
+  #     WORDPRESS_DB_PASSWORD: ${MY_DB_PASSWORD:-password}
+  #     WORDPRESS_DB_NAME: ${MY_DB_NAME:-wordpress}
+  #     WORDPRESS_TABLE_PREFIX: ${TABLE_PREFIX:-wp_}
+  #     WORDPRESS_DEBUG: ${DEBUG_MODE}
+  #   ports:
+  #     - "${WEB_PORT:-8000}:80"
+  #   depends_on:
+  #     - database
 
-  database:
-    container_name: ${MY_DB_HOST:-db-container}
-    platform: linux/x86_64
-    image: mysql:latest
-    volumes:
-      - type: bind
-        source: "./docker/mysql/local/data"
-        target: "/var/lib/mysql"
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_DATABASE: ${MY_DB_NAME:-wordpress}
-      MYSQL_USER: ${MY_DB_USER:-admin}
-      MYSQL_PASSWORD: ${MY_DB_PASSWORD:-password}
-      MYSQL_ROOT_PASSWORD: ${MY_DB_ROOT_PASSWORD:-password}
-      TZ: ${TIME_ZONE}
-    ports:
-      - "3306:3306"
+  # database:
+  #   container_name: ${MY_DB_HOST:-db-container}
+  #   platform: linux/x86_64
+  #   image: mysql:latest
+  #   volumes:
+  #     - type: bind
+  #       source: "./docker/mysql/local/data"
+  #       target: "/var/lib/mysql"
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   environment:
+  #     MYSQL_DATABASE: ${MY_DB_NAME:-wordpress}
+  #     MYSQL_USER: ${MY_DB_USER:-admin}
+  #     MYSQL_PASSWORD: ${MY_DB_PASSWORD:-password}
+  #     MYSQL_ROOT_PASSWORD: ${MY_DB_ROOT_PASSWORD:-password}
+  #     TZ: ${TIME_ZONE}
+  #   ports:
+  #     - "3306:3306"
 
   node:
     container_name: node-container
@@ -48,6 +48,6 @@ services:
         source: "./project"
         target: "/project"
     working_dir: "/project"
-    depends_on:
-      - wordpress
+    # depends_on:
+    #   - wordpress
     tty: true

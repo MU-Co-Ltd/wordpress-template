@@ -8,6 +8,8 @@ export default defineConfig(({ command, mode }) => {
     typeof env?.VITE_WP_THEME_NAME !== 'undefined' && env.VITE_WP_THEME_NAME
       ? env.VITE_WP_THEME_NAME
       : 'twentytwentytwo'
+  /** is mode production */
+  const isProduction = mode === 'production'
 
   /** 設定ここから */
   return {
@@ -42,9 +44,9 @@ export default defineConfig(({ command, mode }) => {
         },
       },
       /** buildコマンドを watchモードで起動 */
-      watch: {},
+      watch: isProduction ? false : {},
       /** [注] build実行時, build.outDirの中を空にする処理を入れる */
-      emptyOutDir: true,
+      emptyOutDir: false,
       manifest: false,
     },
   }
