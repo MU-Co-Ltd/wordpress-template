@@ -23,9 +23,9 @@
 5. 必要に応じて、`SQLファイルのインポート`や`upload画像の反映`を行う
 
 ### 環境構築 **Vite**編
-1. **環境構築 `WordPress`編 `4.`** で用意した**WordPressテーマ**の`テーマ名（フォルダ名）`を、`./app/.env.dev`の環境変数 **`VITE_WP_THEME_NAME`** の値に記述する
+1. **環境構築 `WordPress`編 `4.`** で用意した**WordPressテーマ**の`テーマ名（フォルダ名）`を、`./project/.env`の環境変数 **`VITE_WP_THEME_NAME`** の値に記述する
    ```
-   [.env.dev]
+   [.env]
    VITE_WP_THEME_NAME=xxxxx
    ```
 
