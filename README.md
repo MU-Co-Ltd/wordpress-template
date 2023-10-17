@@ -57,6 +57,13 @@
    ```
    > `./project/public/wp-content/themes/[theme名]`内に`assets/js`, `assets/css`, `assets/image`が作成されていれば成功
 
+### 環境構築 **CI**編
+初期状態では、`SamKirkland/FTP-Deploy-Action`を使用して、FTPアップロードを行う **Github Actions**が設定されている。  
+:bulb: 不要な場合は、`.github/workflows`内のファイルを削除する  
+:bulb: 利用する場合は以下のファイルを確認の上、必要に応じて編集する。また、リポジトリの`Secrets`に必要な環境変数を設定する
+   - 本番用 [`.github/workflows/deploy-production.yml`]
+   - stage用 [`.github/workflows/deploy-staging.yml`]
+
 ### 補足
 - コンパイル後生成される**ファイル名**と、**配置先**の設定
    - `jsファイル`  

@@ -1,0 +1,45 @@
+name: Deploy @Production
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main # メインブランチにマージされたら実行
+    paths:
+      # @todo [xxx] はテーマ名に変更
+      - 'project/public/wp-content/themes/[xxx]/**' # テーマディレクトリに変更があったら実行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check if Secrets are set
+      run: |
+        if [ -z "${{ secrets.FTP_SERVER_HOST }}" ]; then
+          echo "FTP_SERVER_HOST is not set. Please set it in the repository secrets."
+          exit 1
+        fi
+        if [ -z "${{ secrets.PRD_FTP_USERNAME }}" ]; then
+          echo "PRD_FTP_USERNAME is not set. Please set it in the repository secrets."
+          exit 1
+        fi
+        if [ -z "${{ secrets.PRD_FTP_PASSWORD }}" ]; then
+          echo "PRD_FTP_PASSWORD is not set. Please set it in the repository secrets."
+          exit 1
+        fi
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+
+    - name: FTP Deploy
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER_HOST }}
+        username: ${{ secrets.PRD_FTP_USERNAME }}
+        password: ${{ secrets.PRD_FTP_PASSWORD }}
+        # @todo [xxx] はテーマ名に変更
+        local-dir: ./project/public/wp-content/themes/[xxx]/ # 反映元ディレクトリ
+        server-dir: ./ # 反映先ディレクトリ([例] `./wp-content/themes/[xxx]/`)
