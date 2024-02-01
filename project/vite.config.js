@@ -36,7 +36,7 @@ export default defineConfig(({ command, mode }) => {
               typeof entry?.name !== 'undefined' &&
               entry.name.match(/\.s?[ca]ss$/)
             ) {
-              return 'css/[name][extname]'
+              return '[name][extname]'
             }
 
             return 'image/[name][extname]'
