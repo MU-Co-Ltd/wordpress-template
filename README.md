@@ -44,9 +44,9 @@
    $ yarn
    ```
 
-   > [!NOTE]
-   > 初期状態で **vite** + **typescript** + **sass**  
-   > 必要に応じて `package.json`を編集 or モジュールの追加・削除をする
+> [!NOTE]
+> 初期状態で **vite** + **typescript** + **sass**  
+> 必要に応じて `package.json`を編集 or モジュールの追加・削除をする
 
 4. **build**を実行
    ```shell
@@ -87,8 +87,8 @@
    | **SMTP**パスワード | `MAIL_PASSWORD`の値 |
    | **SMTP**暗号化 | `なし` | 
 
-   > [!IMPORTANT]
-   > 本番化する際は反映先の環境に合わせて設定を変更する
+> [!IMPORTANT]
+> 本番化する際は反映先の環境に合わせて設定を変更する
 
 ## 環境構築 **CI**編
 初期状態では、`SamKirkland/FTP-Deploy-Action`を使用して、FTPアップロードを行う **Github Actions**が設定されている。  
