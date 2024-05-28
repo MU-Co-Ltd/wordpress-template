@@ -50,3 +50,21 @@ services:
     depends_on:
       - wordpress
     tty: true
+
+  mail:
+    container_name: ${MAIL_HOST:-mail-container}
+    image: axllent/mailpit
+    restart: unless-stopped
+    ports:
+      - "${MAIL_PORT}:1025"
+      - "8025:8025"
+    environment:
+      MP_MAX_MESSAGES: 1000
+      MP_DATA_FILE: "/data/mailpit.db"
+      MP_SMTP_AUTH: "${MAIL_USERNAME}:${MAIL_PASSWORD}"
+      MP_SMTP_AUTH_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    volumes:
+      - type: bind
+        source: "./docker/mail/local/data"
+        target: "/data"
