@@ -31,7 +31,7 @@
 2. **node**コンテナへ shellアクセス
    ```shell
    [コンソールからアクセスする例]
-   $ docker-compose exec node bash
+   $ docker compose exec node bash
    ```
    > カレントディレクトリに `./project` のファイルがマウントされていることを確認
 
@@ -44,9 +44,9 @@
    $ yarn
    ```
 
-   > [!NOTE]
-   > 初期状態で **vite** + **typescript** + **sass**  
-   > 必要に応じて `package.json`を編集 or モジュールの追加・削除をする
+> [!NOTE]
+> 初期状態で **vite** + **typescript** + **sass**  
+> 必要に応じて `package.json`を編集 or モジュールの追加・削除をする
 
 4. **build**を実行
    ```shell
@@ -87,8 +87,8 @@
    | **SMTP**パスワード | `MAIL_PASSWORD`の値 |
    | **SMTP**暗号化 | `なし` | 
 
-   > [!IMPORTANT]
-   > 本番化する際は反映先の環境に合わせて設定を変更する
+> [!IMPORTANT]
+> 本番化する際は反映先の環境に合わせて設定を変更する
 
 ## 環境構築 **CI**編
 初期状態では、`SamKirkland/FTP-Deploy-Action`を使用して、FTPアップロードを行う **Github Actions**が設定されている。  
@@ -96,6 +96,43 @@
 :bulb: 利用する場合は以下のファイルを確認の上、必要に応じて編集する。また、リポジトリの`Secrets`に必要な環境変数を設定する
    - 本番用 [`.github/workflows/deploy-production.yml`]
    - stage用 [`.github/workflows/deploy-staging.yml`]
+
+## プロジェクト構成
+```
+.
+├── project
+│   ├── public // Dockerコンテナ内のDocumentRoot
+│   │   ├── wp-content
+│   │   │   └── themes
+│   │   │       └── [theme名] // WordPressテーマ
+│   │   │           ├── assets
+│   │   │           │   ├── css
+│   │   │           │   ├── image
+│   │   │           │   └── js
+│   │   │           ├── index.php
+│   │   │           ├── functions.php
+│   │   │           └── style.css
+│   │   └── ...
+│   ├── src
+│   │   ├── scripts // ts & jsファイル
+│   │   ├── styles // scssファイル
+│   │   ├── app.ts // entrypoint
+│   │   └── ...
+│   ├── .env
+│   ├── vite.config.ts
+│   └── ...
+│
+├── docker // Docker関連
+│   ├── mail
+│   ├── mysql
+│   └── php
+│
+├── shell // 開発用シェルスクリプト
+│
+├── .env.sample
+├── compose.yml
+└── ...
+```
 
 ## 補足
 - コンパイル後生成される**ファイル名**と、**配置先**の設定
