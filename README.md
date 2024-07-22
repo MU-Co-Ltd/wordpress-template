@@ -31,7 +31,7 @@
 2. **node**コンテナへ shellアクセス
    ```shell
    [コンソールからアクセスする例]
-   $ docker-compose exec node bash
+   $ docker compose exec node bash
    ```
    > カレントディレクトリに `./project` のファイルがマウントされていることを確認
 
@@ -96,6 +96,43 @@
 :bulb: 利用する場合は以下のファイルを確認の上、必要に応じて編集する。また、リポジトリの`Secrets`に必要な環境変数を設定する
    - 本番用 [`.github/workflows/deploy-production.yml`]
    - stage用 [`.github/workflows/deploy-staging.yml`]
+
+## プロジェクト構成
+```
+.
+├── project
+│   ├── public // Dockerコンテナ内のDocumentRoot
+│   │   ├── wp-content
+│   │   │   └── themes
+│   │   │       └── [theme名] // WordPressテーマ
+│   │   │           ├── assets
+│   │   │           │   ├── css
+│   │   │           │   ├── image
+│   │   │           │   └── js
+│   │   │           ├── index.php
+│   │   │           ├── functions.php
+│   │   │           └── style.css
+│   │   └── ...
+│   ├── src
+│   │   ├── scripts // ts & jsファイル
+│   │   ├── styles // scssファイル
+│   │   ├── app.ts // entrypoint
+│   │   └── ...
+│   ├── .env
+│   ├── vite.config.ts
+│   └── ...
+│
+├── docker // Docker関連
+│   ├── mail
+│   ├── mysql
+│   └── php
+│
+├── shell // 開発用シェルスクリプト
+│
+├── .env.sample
+├── compose.yml
+└── ...
+```
 
 ## 補足
 - コンパイル後生成される**ファイル名**と、**配置先**の設定
