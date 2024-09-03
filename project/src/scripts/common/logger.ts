@@ -1,20 +1,18 @@
 export class Logger {
-  private isDebug: boolean = false
+  private isDebug = false
 
   constructor() {
     // location.hostnameがlocalhostの場合はデバッグモードにする
     this.isDebug = location.hostname === 'localhost'
   }
 
-  line(message: string = '') {
-    const self = this
-    if (!self.isDebug) return
+  line(message = '') {
+    if (this.isDebug) return
     console.trace(`[LINE] ------------------- ${message} -------------------`)
   }
 
   debug(value?: any) {
-    const self = this
-    if (!self.isDebug) return
+    if (this.isDebug) return
     console.debug('[DEBUG]', value)
   }
 }
