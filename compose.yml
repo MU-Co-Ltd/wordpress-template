@@ -1,7 +1,7 @@
 services:
   wordpress:
     container_name: wp-container
-    image: wordpress:php${APP_PHP_VERSION:-8.2}-apache
+    image: wordpress:php${APP_PHP_VERSION:-8.3}-apache
     volumes:
       - type: bind
         source: "./project/public"
