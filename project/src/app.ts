@@ -8,8 +8,7 @@ class App {
   }
 
   run() {
-    const self = this
-    self.logger.line('App.run')
+    this.logger.line('App.run')
   }
 }
 
