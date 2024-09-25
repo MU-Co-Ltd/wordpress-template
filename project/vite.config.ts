@@ -49,5 +49,12 @@ export default defineConfig(({ command, mode }) => {
       emptyOutDir: false,
       manifest: false,
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern',
+        },
+      },
+    },
   }
 })
