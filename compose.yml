@@ -29,7 +29,7 @@ services:
       - type: bind
         source: "./docker/mysql/local/data"
         target: "/var/lib/mysql"
-    command: --default-authentication-plugin=mysql_native_password
+    command: --mysql-native-password=ON
     environment:
       MYSQL_DATABASE: ${MY_DB_NAME:-wordpress}
       MYSQL_USER: ${MY_DB_USER:-admin}
