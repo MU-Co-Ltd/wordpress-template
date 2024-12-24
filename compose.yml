@@ -7,7 +7,7 @@ services:
         source: "./project/public"
         target: "/var/www/html"
       - type: bind
-        source: "./docker/php/local/php.ini"
+        source: "./.docker/php/local/php.ini"
         target: "/usr/local/etc/php/conf.d/php.ini"
     environment:
       WORDPRESS_DB_HOST: "${MY_DB_HOST:-db-container}:3306"
@@ -27,9 +27,8 @@ services:
     image: mysql:latest
     volumes:
       - type: bind
-        source: "./docker/mysql/local/data"
+        source: "./.docker/mysql/local/data"
         target: "/var/lib/mysql"
-    command: --mysql-native-password=ON
     environment:
       MYSQL_DATABASE: ${MY_DB_NAME:-wordpress}
       MYSQL_USER: ${MY_DB_USER:-admin}
@@ -66,5 +65,5 @@ services:
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
     volumes:
       - type: bind
-        source: "./docker/mail/local/data"
+        source: "./.docker/mail/local/data"
         target: "/data"
