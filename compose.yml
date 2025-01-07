@@ -40,7 +40,7 @@ services:
 
   node:
     container_name: node-container
-    image: node:lts-slim
+    image: node:22
     volumes:
       - type: bind
         source: "./project"
