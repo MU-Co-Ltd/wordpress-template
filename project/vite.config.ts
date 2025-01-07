@@ -30,15 +30,12 @@ export default defineConfig(({ command, mode }) => {
           /** js,ts,vue,... */
           entryFileNames: '[name].js',
           /** css,image,font */
-          assetFileNames: (entry) => {
+          assetFileNames: ({ names }) => {
             /** cssと imageの配置先dirを分ける */
-            if (
-              typeof entry?.name !== 'undefined' &&
-              entry.name.match(/\.s?[ca]ss$/)
-            ) {
+            const name = names.shift()
+            if (!name || name.match(/\.s?[ca]ss$/)) {
               return '[name][extname]'
             }
-
             return 'image/[name][extname]'
           },
         },
