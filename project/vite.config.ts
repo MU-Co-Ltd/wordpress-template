@@ -33,7 +33,7 @@ export default defineConfig(({ command, mode }) => {
           assetFileNames: ({ names }) => {
             /** cssと imageの配置先dirを分ける */
             const name = names.shift()
-            if (!name || name.match(/\.s?[ca]ss$/)) {
+            if (name && name.match(/\.s?[ca]ss$/)) {
               return '[name][extname]'
             }
             return 'image/[name][extname]'
