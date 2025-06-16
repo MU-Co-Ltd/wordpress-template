@@ -1,7 +1,7 @@
 services:
   wordpress:
     container_name: wp-container
-    image: wordpress:php${APP_PHP_VERSION:-8.3}-apache
+    image: wordpress:php${APP_PHP_VERSION:-8.4}-apache
     volumes:
       - type: bind
         source: "./project/public"
@@ -23,7 +23,6 @@ services:
 
   database:
     container_name: ${MY_DB_HOST:-db-container}
-    platform: linux/x86_64
     image: mysql:latest
     volumes:
       - type: bind
@@ -40,7 +39,7 @@ services:
 
   node:
     container_name: node-container
-    image: node:22
+    image: node:24
     volumes:
       - type: bind
         source: "./project"
