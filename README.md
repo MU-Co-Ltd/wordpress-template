@@ -56,7 +56,7 @@
    [yarn]
    $ yarn build
    ```
-   > `./project/public/wp-content/themes/[theme名]`内に`assets/js`, `assets/css`, `assets/image`が作成されていれば成功
+   > `./project/public/wp-content/themes/[theme名]`内に`assets/js`, `assets/css`が作成されていれば成功
 
 ## 環境構築 **Mail**編
 以下 **1.** or **2.** のどちらかを行う
