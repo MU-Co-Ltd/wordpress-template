@@ -1,4 +1,4 @@
-import { Logger } from './scripts/common/logger'
+import { Logger } from './common/logger'
 
 class App {
   private logger: Logger
