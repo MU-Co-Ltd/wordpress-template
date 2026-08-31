@@ -45,7 +45,7 @@
    ```
 
 > [!NOTE]
-> 初期状態で **vite** + **typescript** + **sass**  
+> 初期状態で **vite** + **typescript**  
 > 必要に応じて `package.json`を編集 or モジュールの追加・削除をする
 
 4. **build**を実行
@@ -56,7 +56,7 @@
    [yarn]
    $ yarn build
    ```
-   > `./project/public/wp-content/themes/[theme名]`内に`assets/js`, `assets/css`が作成されていれば成功
+   > `./project/public/wp-content/themes/[theme名]`内に`assets/script`, `assets/style`が作成されていれば成功
 
 ## 環境構築 **Mail**編
 以下 **1.** or **2.** のどちらかを行う
@@ -97,6 +97,21 @@
    - 本番用 [`.github/workflows/deploy-production.yml`]
    - stage用 [`.github/workflows/deploy-staging.yml`]
 
+## AI 向け指示書（**CLAUDE.md**）
+**Claude Code** / **GitHub Copilot** 向けの指示書は、更新の主体ごとにファイルを分けている。
+
+| ファイル | 管理主体 | 内容 |
+| --- | --- | --- |
+| `CLAUDE.md` | テンプレート | 目次のみ。`@` import で以下を読み込む |
+| `.claude/rules/*.md` | テンプレート | 全プロジェクト共通のルール（Docker / WordPress / フロントエンド / 開発フロー） |
+| `.claude/project.md` | **プロジェクト** | プロジェクト固有のルール |
+| `.github/copilot-instructions.md` | テンプレート | 上記ファイルへの参照のみ |
+
+:bulb: **プロジェクト固有のルールは `.claude/project.md` に追記する**  
+:bulb: `CLAUDE.md` と `.claude/rules/` はテンプレート更新時に上書きされる前提のため編集しない  
+:bulb: テーマ実装だけに関わる規約は `project/public/wp-content/themes/[theme名]/CLAUDE.md` に置くと、そのディレクトリを扱うときだけ読み込まれる  
+:bulb: 個人的な設定・メモはコミットせず、ユーザーレベルの `~/.claude/CLAUDE.md` に置く
+
 ## プロジェクト構成
 ```
 .
@@ -106,16 +121,16 @@
 │   │   │   └── themes
 │   │   │       └── [theme名] // WordPressテーマ
 │   │   │           ├── assets
-│   │   │           │   ├── css
+│   │   │           │   ├── style
 │   │   │           │   ├── image
-│   │   │           │   └── js
+│   │   │           │   └── script
 │   │   │           ├── index.php
 │   │   │           ├── functions.php
 │   │   │           └── style.css
 │   │   └── ...
 │   ├── src
 │   │   ├── scripts // ts & jsファイル
-│   │   ├── styles // scssファイル
+│   │   ├── styles // cssファイル
 │   │   ├── app.ts // entrypoint
 │   │   └── ...
 │   ├── .env
@@ -129,7 +144,12 @@
 │
 ├── shell // 開発用シェルスクリプト
 │
+├── .claude // AI向け指示書
+│   ├── rules // テンプレート共通ルール
+│   └── project.md // プロジェクト固有ルール
+│
 ├── .env.sample
+├── CLAUDE.md
 ├── compose.yml
 └── ...
 ```
@@ -137,11 +157,10 @@
 ## 補足
 - コンパイル後生成される**ファイル名**と、**配置先**の設定
    - `jsファイル`  
-      `vite.config.ts` の `build.rollupOptions.input` にObject型で記述する **entrypoint** の **key** で **ファイル名**及び**配置先**を調整できる
+      `vite.config.ts` の `build.rolldownOptions.input` にObject型で記述する **entrypoint** の **key** で **ファイル名**及び**配置先**を調整できる
    - `cssファイル` & `imageファイル`  
-      `vite.config.ts` の `build.rollupOptions.output.assetFileNames` の返り値 `css/[name][extname]` と `image/[name][extname]` でそれぞれ **配置先**を調整可能。  
+      `vite.config.ts` の `build.rolldownOptions.output.assetFileNames` の返り値 `[name][extname]` と `image/[name][extname]` でそれぞれ **配置先**を調整可能。  
       **ファイル名** は **entry**するファイル名がそのまま使用される
 
 ## 参考
 - Vite 公式URL（ https://ja.vitejs.dev/ ）
-- Rollup.js 公式URL（ https://rollupjs.org/guide/en/#big-list-of-options ）
