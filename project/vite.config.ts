@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import { cwd } from 'node:process'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig(({ command, mode }) => {
   /** .env.[mode] を読み込み */
@@ -46,5 +47,6 @@ export default defineConfig(({ command, mode }) => {
       emptyOutDir: false,
       manifest: false,
     },
+    plugins: [tailwindcss()],
   }
 })
