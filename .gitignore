@@ -3,6 +3,12 @@
 
 # editor
 .vscode
+.idea
 
 # env
 .env
+
+# AI assistant (local only)
+.claude/settings.local.json
+.claude/**/*.local.md
+CLAUDE.local.md

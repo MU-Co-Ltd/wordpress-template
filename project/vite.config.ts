@@ -1,8 +1,10 @@
 import { defineConfig, loadEnv } from 'vite'
+import { cwd } from 'node:process'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig(({ command, mode }) => {
   /** .env.[mode] を読み込み */
-  const env = loadEnv(mode, process.cwd())
+  const env = loadEnv(mode, cwd())
   /**　対象の Wordpress Themeフォルダ名 */
   const themeName =
     typeof env?.VITE_WP_THEME_NAME !== 'undefined' && env.VITE_WP_THEME_NAME
@@ -19,12 +21,11 @@ export default defineConfig(({ command, mode }) => {
       /** buildしたファイルの配置先 基準dir */
       outDir: `public/wp-content/themes/${themeName}/assets`,
       assetsDir: './',
-      rollupOptions: {
+      rolldownOptions: {
         /** compileの entrypoint */
         input: {
-          'js/app': 'src/app.ts',
-          'css/main': 'src/styles/scss/main.scss',
-          'css/sub': 'src/styles/style.css',
+          'script/app': 'src/scripts/app.ts',
+          'style/main': 'src/styles/style.css',
         },
         output: {
           /** js,ts,vue,... */
@@ -46,5 +47,6 @@ export default defineConfig(({ command, mode }) => {
       emptyOutDir: false,
       manifest: false,
     },
+    plugins: [tailwindcss()],
   }
 })
