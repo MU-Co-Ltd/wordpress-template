@@ -10,32 +10,40 @@ services:
         source: "./.docker/php/local/php.ini"
         target: "/usr/local/etc/php/conf.d/php.ini"
     environment:
-      WORDPRESS_DB_HOST: "${MY_DB_HOST:-db-container}:3306"
-      WORDPRESS_DB_USER: ${MY_DB_USER:-admin}
-      WORDPRESS_DB_PASSWORD: ${MY_DB_PASSWORD:-password}
-      WORDPRESS_DB_NAME: ${MY_DB_NAME:-wordpress}
+      WORDPRESS_DB_HOST: "${DATABASE_HOST:-db-container}:3306"
+      WORDPRESS_DB_USER: ${DATABASE_USER:-admin}
+      WORDPRESS_DB_PASSWORD: ${DATABASE_PASSWORD:-password}
+      WORDPRESS_DB_NAME: ${DATABASE_NAME:-wordpress}
       WORDPRESS_TABLE_PREFIX: ${TABLE_PREFIX:-wp_}
       WORDPRESS_DEBUG: ${DEBUG_MODE}
     ports:
       - "${WEB_PORT:-8000}:80"
     depends_on:
-      - database
+      database:
+        condition: service_healthy
 
   database:
-    container_name: ${MY_DB_HOST:-db-container}
-    image: mysql:latest
+    container_name: ${DATABASE_HOST:-db-container}
+    image: mysql:${MYSQL_VERSION:-latest}
+    restart: always
     volumes:
       - type: bind
         source: "./.docker/mysql/local/data"
         target: "/var/lib/mysql"
     environment:
-      MYSQL_DATABASE: ${MY_DB_NAME:-wordpress}
-      MYSQL_USER: ${MY_DB_USER:-admin}
-      MYSQL_PASSWORD: ${MY_DB_PASSWORD:-password}
-      MYSQL_ROOT_PASSWORD: ${MY_DB_ROOT_PASSWORD:-password}
+      MYSQL_DATABASE: ${DATABASE_NAME:-wordpress}
+      MYSQL_USER: ${DATABASE_USER:-admin}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD:-password}
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD:-password}
       TZ: ${TIME_ZONE}
     ports:
       - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DATABASE_ROOT_PASSWORD:-password}"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
 
   node:
     container_name: node-container
